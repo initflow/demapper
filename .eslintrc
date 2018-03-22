@@ -1,0 +1,19 @@
+{
+  "parser": "babel-eslint",
+	"parserOptions": {
+		"ecmaVersion": 7,
+		"sourceType": "module",
+		"allowImportExportEverywhere": true,
+		"ecmaFeatures": {
+			"objectLiteralDuplicateProperties": false,
+			"experimentalDecorators": true
+		}
+	},
+  "extends": [
+    "standard"
+  ],
+  "plugins": [
+  ],
+  "rules": {
+  }
+}

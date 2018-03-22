@@ -1,0 +1,93 @@
+{
+  "name": "demapper",
+  "version": "0.0.3",
+  "description": "Class mapper from JS object/JSON based on ES7 decorators",
+  "main": "lib/index.js",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "scripts": {
+    "test": "ava 'test/**/*.test.js'",
+    "test:watch": "npm run test -- --watch",
+    "lint": "esw src/ test/",
+    "lint:watch": "npm run lint -- --watch",
+    "build": "npm run lint && babel src -d lib",
+    "build:watch": "npm run build -- --watch",
+    "cover": "nyc npm test",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "do-publish": "npm run lint && npm run build && npm run cover && npm publish"
+  },
+  "files": [
+    "lib",
+    "LICENSE.md",
+    "README.md"
+  ],
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/initflow/demapper.git"
+  },
+  "keywords": [
+    "javascript",
+    "mapper",
+    "class",
+    "json",
+    "decorators"
+  ],
+  "author": "Initflow <info@initlfow.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/initflow/demapper/issues"
+  },
+  "homepage": "https://github.com/initflow/demapper#readme",
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2016": "^6.24.1",
+    "babel-register": "^6.24.0",
+    "coveralls": "^2.12.0",
+    "eslint": "^4.19.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-class-property": "^1.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.1.1",
+    "eslint-watch": "^3.1.3",
+    "nyc": "^10.1.2",
+    "sinon": "^2.1.0"
+  },
+  "dependencies": {},
+  "ava": {
+    "babel": {
+      "presets": [
+        "es2015"
+      ],
+      "plugins": [
+        [
+          "transform-decorators-legacy"
+        ],
+        [
+          "transform-decorators"
+        ],
+        [
+          "transform-class-properties"
+        ],
+        [
+          "transform-object-rest-spread",
+          {
+            "useBuiltIns": true
+          }
+        ]
+      ]
+    }
+  }
+}
