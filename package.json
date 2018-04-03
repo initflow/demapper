@@ -1,6 +1,6 @@
 {
   "name": "demapper",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Class mapper from JS object/JSON based on ES7 decorators",
   "main": "lib/index.js",
   "engines": {
