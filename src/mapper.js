@@ -1,7 +1,7 @@
 const mapper = function (Constructor) {
   return class extends Constructor {
     constructor (input) {
-      super()
+      super(input)
 
       if (this.__mapper) {
         let data = input
