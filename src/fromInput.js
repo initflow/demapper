@@ -21,7 +21,7 @@ const fromInput = function (inputAttr, options) {
             if (options && options.each && Array.isArray(value)) {
               context[propertyKey] = value.map(x => options.each(x))
             } else if (options && options.transform) {
-              context[propertyKey] = options.transform(value)
+              context[propertyKey] = options.transform(value, input)
             } else if (options && options.model) {
               const Model = options.model
               if (Array.isArray(value)) {
