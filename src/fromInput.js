@@ -1,11 +1,11 @@
 const fromInput = function (inputAttr, options) {
   return function (target, propertyKey, descriptor) {
-    target.__mapper = target.__mapper || {
-      properties: []
-    }
+    target.__mappers = target.__mappers || []
     inputAttr = inputAttr || propertyKey
 
-    target.__mapper.properties.push((context, input) => {
+    const id = String(Math.random()).substr(2)
+    target.__mappers.push(id)
+    target[`__mapper__${id}`] = (context, input) => {
       const parts = inputAttr.split('.')
 
       let inputContext = input
@@ -37,7 +37,7 @@ const fromInput = function (inputAttr, options) {
           inputContext = null
         }
       })
-    })
+    }
 
     return descriptor
   }
