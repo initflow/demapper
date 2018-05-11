@@ -1,5 +1,9 @@
 {
-    "presets": ["es2015"],
+    "presets": [
+      ["env", { 
+        "exclude": ["transform-es2015-classes"] 
+      }]
+    ],
     "plugins": [
       ["transform-decorators-legacy"],
       ["transform-decorators"],
