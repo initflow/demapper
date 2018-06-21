@@ -5,7 +5,7 @@ const fromInput = function (inputAttr, options) {
 
     const id = String(Math.random()).substr(2)
     target.__mappers.push(id)
-    target[`__mapper__${id}`] = (context, input) => {
+    target[`__mapper__${id}`] = (context, input = null) => {
       const parts = inputAttr.split('.')
 
       let inputContext = input
@@ -17,21 +17,26 @@ const fromInput = function (inputAttr, options) {
           if (index < parts.length - 1) {
             inputContext = inputContext[part]
           } else {
-            const value = inputContext[part]
-            if (options && options.each && Array.isArray(value)) {
-              context[propertyKey] = value.map(x => options.each(x))
-            } else if (options && options.transform) {
-              context[propertyKey] = options.transform(value, input)
-            } else if (options && options.model) {
+            let value = inputContext[part]
+            if (options && options.model) {
               const Model = options.model
               if (Array.isArray(value)) {
-                context[propertyKey] = value.map(x => new Model(x))
+                value = value.map(x => new Model(x))
               } else {
-                context[propertyKey] = new Model(value)
+                value = new Model(value)
               }
-            } else {
-              context[propertyKey] = value
             }
+            if (options && options.each && Array.isArray(value)) {
+              value = value.map(x => options.each(x))
+            }
+            if (options && options.sort && Array.isArray(value)) {
+              value.sort(options.sort)
+            }
+            if (options && options.transform) {
+              value = options.transform(value, input)
+            }
+
+            context[propertyKey] = value
           }
         } else {
           inputContext = null
