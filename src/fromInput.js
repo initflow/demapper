@@ -18,22 +18,36 @@ const fromInput = function (inputAttr, options) {
             inputContext = inputContext[part]
           } else {
             let value = inputContext[part]
-            if (options && options.model) {
-              const Model = options.model
-              if (Array.isArray(value)) {
-                value = value.map(x => new Model(x))
-              } else {
+            if (options && (value === null || value === undefined)) {
+              if (options.modelNull || options.modelAny) {
+                const Model = options.modelNull || options.modelAny
                 value = new Model(value)
               }
-            }
-            if (options && options.each && Array.isArray(value)) {
-              value = value.map(x => options.each(x))
-            }
-            if (options && options.sort && Array.isArray(value)) {
-              value.sort(options.sort)
-            }
-            if (options && options.transform) {
-              value = options.transform(value, input)
+              if (options.transformNull) {
+                value = options.transformNull(value, input)
+              } else if (options.transformAny) {
+                value = options.transformAny(value, input)
+              }
+            } else if (options) {
+              if (options.model || options.modelAny) {
+                const Model = options.model || options.modelAny
+                if (Array.isArray(value)) {
+                  value = value.map(x => new Model(x))
+                } else {
+                  value = new Model(value)
+                }
+              }
+              if (options.each && Array.isArray(value)) {
+                value = value.map(x => options.each(x))
+              }
+              if (options.sort && Array.isArray(value)) {
+                value.sort(options.sort)
+              }
+              if (options.transform) {
+                value = options.transform(value, input)
+              } else if (options.transformAny) {
+                value = options.transformAny(value, input)
+              }
             }
 
             context[propertyKey] = value
